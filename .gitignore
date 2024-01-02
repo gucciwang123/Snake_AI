@@ -4,6 +4,7 @@ configure.sh
 run.sh
 
 bin
+out
 
 .*
 !/.gitignore
