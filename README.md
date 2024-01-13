@@ -1,6 +1,6 @@
-# Template 
+# Snake AI 
 
-Template for CMake Projects
+An attempt to create to create a working AI using a version of the NEAT algorithm that is able to beat the game SNAKE and hopefully other popular games.
 
 ## Build
 

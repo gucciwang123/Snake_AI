@@ -1,7 +1,8 @@
-clean.sh
-compile.sh
+reset.sh
+make.sh
 configure.sh
 run.sh
+test.sh
 
 bin
 out
