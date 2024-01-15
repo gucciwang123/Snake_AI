@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GAME_H
+#define GAME_H
+
 #include <pch.h>
 
 typedef SN_QWORD SN_MOVE;
@@ -49,19 +51,24 @@ typedef struct {
 	SN_GAME_ELEMENT** matrix;
 } SN_GAME;
 
-#define SN_TEMPLATE_DEFAULT_SIZE 0
-#define SN_TEMPLATE_DEFAULT_HEAD 0
-#define SN_TEMPLATE_DEFAULT_LENGTH 0
-#define SN_TEMPLATE_DEFAULT_GROWSIZE 0
+#define SN_TEMPLATE_DEFAULT_SIZE_X 31
+#define SN_TEMPLATE_DEFAULT_SIZE_Y 21
+#define SN_TEMPLATE_DEFAULT_HEAD {1, 1}
+#define SN_TEMPLATE_DEFAULT_LENGTH 1
+#define SN_TEMPLATE_DEFAULT_GROWSIZE 5
 
-#define SN_DEFAULT_BOARD {SN_TEMPLATE_DEFAULT_SIZE, SN_TEMPLATE_DEFAULT_SIZE, 128, 128, SN_TEMPLATE_DEFAULT_LENGTH, SN_TEMPLATE_DEFAULT_GROWSIZE}
+//default board
+//dimensions: 31x21
+//head_pos: (15, 10)
+//length: 1
+//grow size: 5
+#define SN_DEFAULT_BOARD {SN_TEMPLATE_DEFAULT_SIZE_X, SN_TEMPLATE_DEFAULT_SIZE_Y, {15, 10}, SN_TEMPLATE_DEFAULT_LENGTH, SN_TEMPLATE_DEFAULT_GROWSIZE}
 
 typedef struct{
 	SN_WORD sizeX;
 	SN_WORD sizeY;
 
-	SN_WORD headX;
-	SN_WORD headY;
+	SN_POSITION head;
 
 	SN_WORD length;
 
@@ -69,7 +76,8 @@ typedef struct{
 } SN_GAME_TEMPLATE;
 
 
-SN_ERROR SN_createGame(SN_GAME_TEMPLATE* template, SN_GAME* o_game);
+//NOTE must set seed of randomizer in C stdlib for acual randomization
+SN_ERROR SN_createGame(SN_GAME_TEMPLATE* template, SN_GAME** o_game);
 
 SN_ERROR SN_nextMove(SN_GAME* game, SN_MOVE move);
 
@@ -77,11 +85,7 @@ SN_ERROR SN_validateGame(SN_GAME* game);
 
 SN_ERROR SN_deleteGame(SN_GAME* game);
 
+//NOTE: SN_resetGame ignores the following arguments in SN_GAME_TEMPLATE: sizeX, sizeY, growSize
 SN_ERROR SN_resetGame(SN_GAME* game, SN_GAME_TEMPLATE* template);
 
-#define SN_POS_OUT_OF_BOUND_ERROR 1
-#define SN_LENGTH_OUT_OF_BOUND_ERROR 2
-#define SN_INVALID_BOARD_SIZE 3
-#define SN_INVALID_MOVE 4
-
-#define SN_END_GAME 5
+#endif
